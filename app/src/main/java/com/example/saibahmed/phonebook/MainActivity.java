@@ -2,7 +2,12 @@ package com.example.saibahmed.phonebook;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +50,48 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ListView listView = (ListView)findViewById(R.id.list);
+
+        CustomAdaptor customAdaptor = new CustomAdaptor();
+
+        listView.setAdapter(customAdaptor);
         
+    }
+
+    class CustomAdaptor extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return IMAGES.length;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            view=getLayoutInflater().inflate(R.layout.phone_layout,null);
+
+            //Grab references from UI
+            ImageView imageView = view.findViewById(R.id.imageView);
+            TextView textView_name = view.findViewById(R.id.textView_name);
+            TextView textView_phone = view.findViewById(R.id.textView_phone);
+
+            //Settings elements to actual value
+            imageView.setImageResource(IMAGES[i]);
+            textView_name.setText(NAMES[i]);
+            textView_phone.setText(PHONES[i]);
+
+
+
+            return view;
+        }
     }
 }
